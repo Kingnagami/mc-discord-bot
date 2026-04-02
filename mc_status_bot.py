@@ -15,7 +15,7 @@ SERVER_HOST   = "KNB1.aternos.me"
 SERVER_PORT_JAVA    = 62733
 SERVER_PORT_BEDROCK = 62733                    # เปลี่ยนถ้า Bedrock ใช้ port ต่างกัน
 
-CHECK_INTERVAL_MINUTES = 30                    # เช็คทุกกี่นาที
+CHECK_INTERVAL_MINUTES = 10                    # เช็คทุกกี่นาที
 OFFLINE_ALERT_THRESHOLD = 3                    # แจ้งเตือนถ้าออฟไลน์ติดกันกี่ครั้ง
 # ============================================================
 
