@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands, tasks
-from mcstatus import JavaServer
+from minestat import MineStat
 from datetime import datetime
 import os
 
@@ -12,8 +12,8 @@ CHANNEL_ID    = int(os.environ.get("CHANNEL_ID"))
 SERVER_HOST   = "KNB1.aternos.me"
 SERVER_PORT   = 62733
 
-CHECK_INTERVAL_MINUTES = 10       # เช็คทุกกี่นาที
-OFFLINE_ALERT_THRESHOLD = 3       # แจ้งเตือนถ้าออฟไลน์ติดกันกี่ครั้ง (3 x 30 = 90 นาที)
+CHECK_INTERVAL_MINUTES  = 30  # เช็คทุกกี่นาที
+OFFLINE_ALERT_THRESHOLD = 3   # แจ้งเตือนถ้าออฟไลน์ติดกันกี่ครั้ง (3 x 30 = 90 นาที)
 # ============================================================
 
 intents = discord.Intents.default()
@@ -26,9 +26,11 @@ offline_count = 0
 
 def check_java():
     try:
-        server = JavaServer.lookup(f"{SERVER_HOST}:{SERVER_PORT}")
-        status = server.status()
-        return True, status.players.online, status.players.max, str(status.version.name)
+        ms = MineStat(SERVER_HOST, SERVER_PORT, timeout=10)
+        if ms.online:
+            return True, int(ms.current_players or 0), int(ms.max_players or 0), str(ms.version or "N/A")
+        else:
+            return False, 0, 0, "N/A"
     except Exception:
         return False, 0, 0, "N/A"
 
