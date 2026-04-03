@@ -12,7 +12,7 @@ CHANNEL_ID    = int(os.environ.get("CHANNEL_ID"))
 SERVER_HOST   = "KNB1.aternos.me"
 SERVER_PORT   = 62733
 
-CHECK_INTERVAL_MINUTES  = 30  # เช็คทุกกี่นาที
+CHECK_INTERVAL_MINUTES  = 10  # เช็คทุกกี่นาที
 OFFLINE_ALERT_THRESHOLD = 3   # แจ้งเตือนถ้าออฟไลน์ติดกันกี่ครั้ง (3 x 30 = 90 นาที)
 
 # ถ้าเวอร์ชันมีคำนี้อยู่ = ออนไลน์จริง
