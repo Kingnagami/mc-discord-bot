@@ -12,8 +12,11 @@ CHANNEL_ID    = int(os.environ.get("CHANNEL_ID"))
 SERVER_HOST   = "KNB1.aternos.me"
 SERVER_PORT   = 62733
 
-CHECK_INTERVAL_MINUTES  = 10  # เช็คทุกกี่นาที
+CHECK_INTERVAL_MINUTES  = 30  # เช็คทุกกี่นาที
 OFFLINE_ALERT_THRESHOLD = 3   # แจ้งเตือนถ้าออฟไลน์ติดกันกี่ครั้ง (3 x 30 = 90 นาที)
+
+# ถ้าเวอร์ชันมีคำนี้อยู่ = ออนไลน์จริง
+ONLINE_VERSION_KEYWORD = "Another Geyser server"
 # ============================================================
 
 intents = discord.Intents.default()
@@ -28,7 +31,13 @@ def check_java():
     try:
         ms = MineStat(SERVER_HOST, SERVER_PORT, timeout=10)
         if ms.online:
-            return True, int(ms.current_players or 0), int(ms.max_players or 0), str(ms.version or "N/A")
+            version = str(ms.version or "")
+            # เช็คว่าเวอร์ชันมี keyword ที่กำหนดไหม
+            if ONLINE_VERSION_KEYWORD.lower() in version.lower():
+                return True, int(ms.current_players or 0), int(ms.max_players or 0), version
+            else:
+                # ping ได้แต่เวอร์ชันไม่ตรง = ยังไม่ได้เปิดจริง
+                return False, 0, 0, version
         else:
             return False, 0, 0, "N/A"
     except Exception:
