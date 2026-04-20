@@ -9,8 +9,8 @@ import os
 # ============================================================
 DISCORD_TOKEN = os.environ.get("DISCORD_TOKEN")
 CHANNEL_ID    = int(os.environ.get("CHANNEL_ID"))
-SERVER_HOST   = "KNB1.aternos.me"
-SERVER_PORT   = 62733
+SERVER_HOST   = "NewWorld-8cGC.aternos.me"
+SERVER_PORT   = 13146
 
 CHECK_INTERVAL_MINUTES  = 10  # เช็คทุกกี่นาที
 OFFLINE_ALERT_THRESHOLD = 3   # แจ้งเตือนถ้าออฟไลน์ติดกันกี่ครั้ง (3 x 30 = 90 นาที)
